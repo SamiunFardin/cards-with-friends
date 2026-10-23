@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplayer Card Games Platform</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/poker.css">
+  <link rel="stylesheet" href="./css/callbridge.css">
+  <link rel="stylesheet" href="./css/twentynine.css">
+  <link rel="stylesheet" href="./css/uno.css">
+</head>
+<body>
+  <div id="app">
+    <!-- SCREEN 1: LOBBY / GAME SELECTION -->
+    <section id="screen-lobby" class="screen active">
+      <div class="lobby-container">
+        <h1>Card Games Arena</h1>
+        <p class="subtitle">Play Poker, Call Bridge, 29, and UNO No Mercy with friends instantly.</p>
+        
+        <div class="nickname-box">
+          <input type="text" id="player-nickname" placeholder="Enter your nickname..." maxlength="15">
+        </div>
+
+        <div class="game-cards-grid">
+          <div class="game-card" data-game="callbridge">
+            <h3>Call Bridge</h3>
+            <p>Strategic 4-player trick-taking with custom under-call rules & grand slams.</p>
+            <button class="btn select-game-btn">Select</button>
+          </div>
+          <div class="game-card" data-game="twentynine">
+            <h3>29 Card Game</h3>
+            <p>Partner team battle with 7th card trump, royal pairs, and single hand calls.</p>
+            <button class="btn select-game-btn">Select</button>
+          </div>
+          <div class="game-card" data-game="poker">
+            <h3>Texas Hold'em Poker</h3>
+            <p>Configurable blinds, cash buy-ins with host approval, and automated showdowns.</p>
+            <button class="btn select-game-btn">Select</button>
+          </div>
+          <div class="game-card" data-game="uno">
+            <h3>UNO Show 'Em No Mercy</h3>
+            <p>Brutal 168-card variant with stackable draws, hand swaps, and 25-card elimination.</p>
+            <button class="btn select-game-btn">Select</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: ROOM SETUP (CREATE OR JOIN) -->
+    <section id="screen-room" class="screen">
+      <div class="room-setup-container">
+        <button id="back-to-lobby" class="btn-secondary">← Back to Lobby</button>
+        <h2 id="room-game-title">Room Setup</h2>
+
+        <div class="room-modes">
+          <div class="mode-box">
+            <h3>Create Room</h3>
+            <button id="create-room-btn" class="btn primary">Generate Room</button>
+          </div>
+          <div class="mode-box">
+            <h3>Join Room</h3>
+            <input type="text" id="join-room-code" placeholder="Enter 4-letter Code" maxlength="4">
+            <div id="poker-buyin-wrapper" class="hidden">
+              <input type="number" id="buyin-amount" placeholder="Buy-in Cash Amount" value="1000">
+            </div>
+            <button id="join-room-btn" class="btn primary">Join Table</button>
+          </div>
+        </div>
+
+        <!-- WAITING ROOM LOBBY -->
+        <div id="waiting-lobby" class="hidden">
+          <h3>Room Code: <span id="display-room-code">----</span></h3>
+          <div class="share-info">
+            <p>Share invite link or scan QR code:</p>
+            <input type="text" id="invite-link-input" readonly>
+            <div id="qrcode-container"></div>
+          </div>
+          <h4>Players in Room (<span id="player-count">0</span>/<span id="max-player-count">4</span>):</h4>
+          <ul id="players-list"></ul>
+          <button id="start-game-btn" class="btn primary hidden">Start Game</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: LIVE GAME TABLE -->
+    <section id="screen-game" class="screen">
+      <div id="game-table-container">
+        <!-- Dynamic game boards will mount here -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Socket.IO Client Library -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- QR Code Generator Library -->
+  <script src="./js/qr.min.js"></script>
+  <!-- Main Client Logic -->
+  <script src="./js/main.js"></script>
+</body>
+</html>
