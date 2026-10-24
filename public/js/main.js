@@ -97,6 +97,13 @@ socket.on('game-started', ({ gameType, gameState }) => {
   }
 });
 
+// Added listener for real-time game state synchronization across players
+socket.on('game-update', (gameState) => {
+  if (window.renderGameUI) {
+    window.renderGameUI(currentSelectedGame, gameState, socket, currentRoomCode);
+  }
+});
+
 startGameBtn.addEventListener('click', () => {
   socket.emit('start-game', { roomCode: currentRoomCode });
 });
