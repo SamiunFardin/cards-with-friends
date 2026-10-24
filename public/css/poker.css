@@ -1,0 +1,44 @@
+.poker-table {
+  width: 100%;
+  max-width: 900px;
+  height: 480px;
+  background: #14532d;
+  border: 12px solid #78350f;
+  border-radius: 200px;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.poker-pot {
+  position: absolute;
+  top: 30%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #facc15;
+}
+
+.poker-community {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.poker-controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.raise-slider-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
