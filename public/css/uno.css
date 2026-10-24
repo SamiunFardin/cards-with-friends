@@ -1,0 +1,58 @@
+.uno-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.uno-table {
+  width: 100%;
+  max-width: 800px;
+  height: 450px;
+  background: #2a2a2a;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+}
+
+.uno-card {
+  width: 70px;
+  height: 105px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: white;
+  border: 2px solid white;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.uno-card.red { background: #ef4444; }
+.uno-card.blue { background: #3b82f6; }
+.uno-card.green { background: #22c55e; }
+.uno-card.yellow { background: #eab308; color: black; }
+.uno-card.wild { background: linear-gradient(135deg, #ef4444, #3b82f6, #22c55e, #eab308); }
+
+.uno-btn-call {
+  background: #dc2626;
+  color: white;
+  font-weight: 900;
+  font-size: 1.2rem;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
