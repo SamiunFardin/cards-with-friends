@@ -1,0 +1,37 @@
+.tn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.tn-scoreboard {
+  display: flex;
+  gap: 40px;
+  background: var(--panel-bg);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.tn-table {
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  background: #1e3a8a;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tn-trump-indicator {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+}
