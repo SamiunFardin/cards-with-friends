@@ -1,5 +1,5 @@
 /**
- * Main Frontend Logic & Socket Event Handling
+ * Main Frontend Logic & Socket Event Handling with LocalStorage Persistence
  */
 const socket = io();
 
@@ -29,6 +29,19 @@ const playerCount = document.getElementById('player-count');
 const maxPlayerCount = document.getElementById('max-player-count');
 const startGameBtn = document.getElementById('start-game-btn');
 
+// Restore saved session data from localStorage on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const savedNickname = localStorage.getItem('playerNickname');
+  const savedRoomCode = localStorage.getItem('currentRoomCode');
+  
+  if (savedNickname) {
+    nicknameInput.value = savedNickname;
+  }
+  if (savedRoomCode) {
+    joinRoomCodeInput.value = savedRoomCode;
+  }
+});
+
 // Game Selection
 gameCards.forEach(card => {
   card.querySelector('.select-game-btn').addEventListener('click', () => {
@@ -37,6 +50,7 @@ gameCards.forEach(card => {
       alert('Please enter a nickname first!');
       return;
     }
+    localStorage.setItem('playerNickname', nickname);
 
     currentSelectedGame = card.dataset.game;
     document.getElementById('room-game-title').innerText = `Setup - ${currentSelectedGame.toUpperCase()}`;
@@ -58,6 +72,11 @@ backToLobbyBtn.addEventListener('click', () => {
 // Create Room
 createRoomBtn.addEventListener('click', () => {
   const nickname = nicknameInput.value.trim();
+  if (!nickname) {
+    alert('Please enter a nickname first!');
+    return;
+  }
+  localStorage.setItem('playerNickname', nickname);
   socket.emit('create-room', { gameType: currentSelectedGame, nickname });
 });
 
@@ -67,10 +86,18 @@ joinRoomBtn.addEventListener('click', () => {
   const roomCode = joinRoomCodeInput.value.trim().toUpperCase();
   const buyInAmount = parseInt(buyinAmountInput.value, 10) || 0;
 
+  if (!nickname) {
+    alert('Please enter a nickname first!');
+    return;
+  }
+
   if (!roomCode || roomCode.length !== 4) {
     alert('Please enter a valid 4-character room code.');
     return;
   }
+
+  localStorage.setItem('playerNickname', nickname);
+  localStorage.setItem('currentRoomCode', roomCode);
 
   socket.emit('join-room', { roomCode, nickname, buyInAmount });
 });
@@ -78,6 +105,7 @@ joinRoomBtn.addEventListener('click', () => {
 // Socket Event Listeners
 socket.on('room-created', ({ roomCode, gameType, players }) => {
   currentRoomCode = roomCode;
+  localStorage.setItem('currentRoomCode', roomCode);
   updateWaitingLobby(roomCode, players, true);
 });
 
@@ -97,7 +125,6 @@ socket.on('game-started', ({ gameType, gameState }) => {
   }
 });
 
-// Added listener for real-time game state synchronization across players
 socket.on('game-update', (gameState) => {
   if (window.renderGameUI) {
     window.renderGameUI(currentSelectedGame, gameState, socket, currentRoomCode);
@@ -110,6 +137,7 @@ startGameBtn.addEventListener('click', () => {
 
 function updateWaitingLobby(roomCode, players, isHost) {
   currentRoomCode = roomCode;
+  localStorage.setItem('currentRoomCode', roomCode);
   waitingLobby.classList.remove('hidden');
   displayRoomCode.innerText = roomCode;
   
