@@ -108,10 +108,10 @@ function handleAction(room, socketId, actionData) {
   else if (state.phase === 'trump-selection' && socketId === state.highestBidderId && type === 'select-trump') {
     if (payload.use7thCard) {
       state.trumpIs7thCard = true;
-      // 7th card of trump-setter is card at index 2 of remaining deal
+      // 7th card of trump-setter is card at index 2 of remaining deal (fixed variable name)
       const trumpSetterIndex = room.players.findIndex(p => p.id === socketId);
-      const 7thCard = state.remainingDeck[trumpSetterIndex * 4 + 2];
-      state.trumpSuit = 7thCard.suit;
+      const seventhCard = state.remainingDeck[trumpSetterIndex * 4 + 2];
+      state.trumpSuit = seventhCard.suit;
     } else {
       state.trumpSuit = payload.suit;
     }
